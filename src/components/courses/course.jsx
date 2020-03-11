@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Input from '../commom/input';
 import axios from 'axios';
 
 const apiEndpoint = 'http://localhost:3000/api/courses';
@@ -46,40 +47,24 @@ export default class Course extends Component{
                 <h1>Course - {course.title}</h1>
                 <div className="alert alert-info" role="alert">Slug {course.slug}</div>
                 <form action="">
-                    <div className="form-group">
-                        <label htmlFor="title">Title</label>
-                        <input
-                            value={course.title}
-                            placeholder={course.title}
-                            onChange={this.handleChange}
-                            id="title"
-                            name="title"
-                            type="text"
-                            className="form-control"
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="title">Slug</label>
-                        <input
-                            value={course.slug}
-                            placeholder={course.slug}
-                            onChange={this.handleChange}
-                            id="slug"
-                            name="slug"
-                            type="text"
-                            className="form-control"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="description">Description</label>
-                        <input
-                            value={course.description}
-                            placeholder={course.description}
-                            onChange={this.handleChange}
-                            id="description"
-                            name="description"
-                            type="text"
-                            className="form-control"/>
-                    </div>
+                    <Input
+                        label="Title"
+                        value={course.title}
+                        onChange={this.handleChange}
+                        name="title"
+                    />
+                    <Input
+                        label="Slug"
+                        value={course.slug}
+                        onChange={this.handleChange}
+                        name="Slug"
+                    />
+                    <Input
+                        label="Description"
+                        value={course.description}
+                        onChange={this.handleChange}
+                        name="description"
+                    />
                     <button onClick={() => this.handleDelete()} type="button" className="btn btn-danger float-left">Delete</button>
                     <button onClick={() => this.handleUpdate()} type="button" className="btn btn-primary float-right">Save</button>
                 </form>
