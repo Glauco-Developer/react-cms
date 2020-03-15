@@ -7,6 +7,7 @@ import Login from './components/login';
 import Courses from './components/courses/courses';
 import Course from './components/courses/course';
 import AddCourse from './components/courses/addCourse';
+import Users from './components/users';
 
 import './App.css';
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/courses/:id" component={Course} />
             <Route path="/add-course" component={AddCourse} />
             <Route path="/courses" component={Courses} />
+            <Route path="/users" component={Users} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

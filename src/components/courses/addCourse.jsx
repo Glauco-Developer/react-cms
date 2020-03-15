@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Joi from 'joi-browser';
 import Input from '../commom/input';
 import axios from 'axios';
 
@@ -10,7 +11,28 @@ export default class Course extends Component{
             title: '',
             slug: '',
             description: ''
+        },
+        errors: {}
+    }
+
+    schema = {
+        title: Joi.string().required().min(3).label('Title'),
+        slug: Joi.string().required().min(3).label('Slug'),
+        description: Joi.optional()
+    }
+
+    validate = () => {
+        const options = { abortEarly: false }
+        const { error } = Joi.validate(this.state.course, this.schema, options);
+        if (!error) return null;              
+        
+        const errors = {};
+        for(let item of error.details){
+            errors[item.path[0]] = item.message;
+            console.log(errors)
         }
+
+        return errors;
     }
 
     handleChange = ({ currentTarget: input }) => {
@@ -19,17 +41,19 @@ export default class Course extends Component{
         this.setState({ course });
     }
     
-    async handleAdd(){
+    handleAdd = async () => {
+        const errors = this.validate();
+        this.setState({ errors: errors || {} });
+        if(errors) return;
+        
         const { course } = this.state;
         await axios.post(apiEndpoint, course);
         alert('Course Added Successfully');
         this.props.history.push('/courses');
     }
 
-    render(){
-        
-        const { course } = this.state;
-
+    render(){        
+        const { course, errors } = this.state;
         return(
             <>
                 <h1>Add New Course - {course.title}</h1>
@@ -41,6 +65,7 @@ export default class Course extends Component{
                         onChange={this.handleChange}
                         name="title"
                         type="text"
+                        error={errors.title}
                     />
                     <Input
                         label="Slug"
@@ -48,6 +73,7 @@ export default class Course extends Component{
                         onChange={this.handleChange}
                         name="slug"
                         type="text"
+                        error={errors.slug}
                     />
                     <Input
                         label="Description"

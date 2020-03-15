@@ -14,27 +14,14 @@ export default class Courses extends Component {
         this.setState({ courses });
     }
 
-    async handleAdd(){
-        const obj = {
-            title: 'React.js',
-            slug: 'react',
-            description: 'asd'
-        }
-        const { data: course } = await axios.post(apiEndpoint, obj);
-        const courses = [course, ...this.state.courses];
-        this.setState({ courses })
-    }
-
     async handleDelete(course) {
         await axios.delete(`${apiEndpoint}/${course._id}`);
         const courses = this.state.courses.filter(c => c._id !== course._id);
         this.setState({ courses })
     }
 
-    render(){
-        
+    render(){        
         const { courses } = this.state;
-
         return(
             <>
                 <h1>Courses</h1>

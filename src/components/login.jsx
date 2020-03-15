@@ -6,7 +6,6 @@ export default class Login extends Component {
     state = {
         account: { username: '', password: '' },
         errors: {}
-        
     };
 
     schema = {
@@ -16,13 +15,13 @@ export default class Login extends Component {
 
     validate = () => {
         const options = { abortEarly: false }
-        const { error } = Joi.validate(this.state.account, this.schema, options);
-        if (!error) return null;
-       
+        const { error } = Joi.validate(this.state.account, this.schema, options);        
+        
+        if (!error) return null;       
+        
         const errors = {};
         for(let item of error.details)
             errors[item.path[0]] = item.message;
-
         return errors;
     }
 
@@ -35,11 +34,9 @@ export default class Login extends Component {
     
     handleSubmit = e => {
         e.preventDefault();
-
         const errors = this.validate();
         this.setState({ errors: errors || {} });
         if(errors) return;
-
         console.log('Submitted')
     }
 
@@ -49,7 +46,6 @@ export default class Login extends Component {
         if(errorMessage) errors[input.name] = errorMessage;
         else delete errors[input.name];
 
-
         const account = { ...this.state.account };
         account[input.name] = input.value;
         this.setState({ account, errors });
@@ -57,7 +53,6 @@ export default class Login extends Component {
 
     render(){
         const { account, errors } = this.state;
-
         return(
             <div>
                 <h1>Login</h1>

@@ -38,10 +38,8 @@ export default class Course extends Component{
         this.props.history.push('/courses');
     }
 
-    render(){
-        
+    render(){        
         const { course } = this.state;
-
         return(
             <>
                 <h1>Course - {course.title}</h1>
@@ -57,7 +55,7 @@ export default class Course extends Component{
                         label="Slug"
                         value={course.slug}
                         onChange={this.handleChange}
-                        name="Slug"
+                        name="slug"
                     />
                     <Input
                         label="Description"
